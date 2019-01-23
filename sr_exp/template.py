@@ -147,28 +147,29 @@ def upscale_dic(dic_L, batch_size=(6,6), upscale=2):
     names = []
     
     for i in range(N):
+        
         name = dic_L['names'][i]
         Theta = dic_L['params'][i]
+        patch = np.zeros((w*upscale, h*upscale))
+        
         if name == '2Dtanh':
-            # th b xi
             Theta[1] *= upscale
-            img = np.zeros((w*upscale, h*upscale))
             for w_ in range(w*upscale):
                 for h_ in range(h*upscale):
-                    img[i, j] = tanh2d(w_, h_, Theta[0], Theta[1], Theta[2])
+                    patch[w_, h_] = tanh2d(w_, h_, Theta[0], Theta[1], Theta[2])
         
         params.append(Theta)
         names.append(name)
-        data.append(data)
+        data.append(patch)
                  
     
     
     data = np.array(data).reshape(N, -1)
-    dic['data'] = data
-    dic['params'] = params
-    dic['names'] = names
+    dic_H['data'] = data
+    dic_H['params'] = params
+    dic_H['names'] = names
     
-    return dic
+    return dic_H
 
 
 

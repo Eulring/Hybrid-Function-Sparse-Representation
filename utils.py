@@ -19,6 +19,7 @@ def rgb2hsv(image):
 def rgb2ycbcr(image):
     return image.convert('YCbCr')
 
+# crop the image to fit the pathes selection
 def imgcut(img, batch_size = (6,6)):
     w, h = img.shape
     w_ = w - (w - batch_size[0]) % (batch_size[0] - int(batch_size[0]/3))
